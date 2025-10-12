@@ -1,0 +1,7 @@
+import React,{useEffect,useMemo,useState} from 'react';
+import {ResponsiveContainer,LineChart,Line,XAxis,YAxis,CartesianGrid,Tooltip,Legend} from 'recharts';
+import {Factory,TrendingUp} from 'lucide-react';
+import {loadCSV} from '../util';
+const Card=({children})=>(<div className='card'>{children}</div>);
+const Title=({title,subtitle})=>(<div style={{marginBottom:'.5rem'}}><h3 style={{fontSize:'1.125rem',fontWeight:600}}>{title}</h3>{subtitle&&<p className='subtitle'>{subtitle}</p>}</div>);
+export default function MovItaqui(){const [dados,setDados]=useState([]);useEffect(()=>{loadCSV('/data/complexo.csv').then(setDados)},[]);const serie=[...dados].map(r=>({ano:r.ano,Itaqui:r.itaqui})).sort((a,b)=>a.ano-b.ano);const cards=[...serie].sort((a,b)=>b.ano-a.ano);return(<div className='grid'><div className='grid g2'>{cards.map(r=>(<Card key={r.ano}><Title title='Total Itaqui' subtitle={`${r.ano} (t)`}/><div className='kpi'>{Number(r.Itaqui).toLocaleString('pt-BR')}</div></Card>))}</div><Card><Title title='Série Anual – Itaqui (t)' subtitle='Valores absolutos por ano'/><div style={{height:'360px'}}><ResponsiveContainer width='100%' height='100%'><LineChart data={serie}><CartesianGrid strokeDasharray='3 3'/><XAxis dataKey='ano'/><YAxis/><Tooltip formatter={v=>typeof v==='number'?v.toLocaleString('pt-BR'):v}/><Legend/><Line type='monotone' dataKey='Itaqui' strokeWidth={3} dot={{r:3}}/></LineChart></ResponsiveContainer></div></Card></div>)}

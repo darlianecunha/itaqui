@@ -1,0 +1,7 @@
+import React,{useEffect,useState} from 'react';
+import {ResponsiveContainer,LineChart,Line,XAxis,YAxis,CartesianGrid,Tooltip,Legend} from 'recharts';
+import {Gauge} from 'lucide-react';
+import {loadCSV} from '../util';
+const Card=({children})=>(<div className='card'>{children}</div>);
+const Title=({title,subtitle})=>(<div style={{marginBottom:'.5rem'}}><h3 style={{fontSize:'1.125rem',fontWeight:600}}>{title}</h3>{subtitle&&<p className='subtitle'>{subtitle}</p>}</div>);
+export default function IDA(){const [serie,setSerie]=useState([]);useEffect(()=>{loadCSV('/data/ida.csv').then(setSerie)},[]);const atual=serie[serie.length-1];return(<div className='grid'><Card><Title title='IDA – Índice de Desempenho Ambiental' subtitle={atual?`Ano ${String(atual.periodo).split('.')[0]}`:''}/><div className='kpi' style={{color:'var(--brand-2)'}}>{atual?(Number(atual.score)*100).toFixed(2):'--'}<span style={{fontSize:'1rem',color:'var(--muted)'}}>/100</span></div></Card><Card><Title title='Evolução Histórica do IDA' subtitle='Comparativo de 2012–2023'/><div style={{height:'380px'}}><ResponsiveContainer width='100%' height='100%'><LineChart data={serie}><CartesianGrid strokeDasharray='3 3'/><XAxis dataKey='periodo'/><YAxis domain={[0.6,1]} tickFormatter={v=>Math.round(v*100)}/><Tooltip formatter={v=>typeof v==='number'?`${(v*100).toFixed(2)}/100`:v}/><Legend/><Line type='monotone' dataKey='score' strokeWidth={3} dot={{r:3}}/></LineChart></ResponsiveContainer></div></Card></div>)}

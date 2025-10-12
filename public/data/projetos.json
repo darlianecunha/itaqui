@@ -1,0 +1,27 @@
+[
+  {
+    "nome": "CONEXÃO VERDE: HUB DE ENERGIA ON-SHORE E AUTÔNOMA PARA NAVIOS EM ITAQUI-MA.",
+    "ods": [
+      7
+    ],
+    "status": "Concluído",
+    "responsavel": "Prof. Clóvis Oliveira e Profa. Darliane Cunha",
+    "progresso": 100
+  },
+  {
+    "nome": "COMPLEXO PORTUÁRIO VERDE: PROPOSTA DE INDICADORES VINCULADOS AOS ODS.",
+    "ods": [
+      7,
+      8,
+      9,
+      11,
+      12,
+      13,
+      14,
+      17
+    ],
+    "status": "Concluído",
+    "responsavel": "Profa. Darliane Cunha e Prof. Clóvis Oliveira",
+    "progresso": 100
+  }
+]
